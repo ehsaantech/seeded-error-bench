@@ -1,0 +1,26 @@
+[project]
+name = "seeded-error-bench"
+version = "1.0.0"
+description = "A seeded-error benchmark for fixed-asset substantive testing: deterministic rules against a language model."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+    "httpx>=0.27",
+    "pdfplumber>=0.11",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+tiepoint-bench = "tiepoint_bench.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["tiepoint_bench"]
