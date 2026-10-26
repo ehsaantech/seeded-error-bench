@@ -151,7 +151,8 @@ def _findings_from(result: dict) -> list[Finding]:
     return findings
 
 
-def _call(endpoint: str, api_key: str, model: str, text: str, timeout: float) -> dict:
+def _call(endpoint: str, api_key: str, model: str, text: str, timeout: float,
+          max_tokens: int | None = None) -> dict:
     """One chat completion. Returns the parsed body and the usage."""
     import httpx
 
@@ -168,6 +169,8 @@ def _call(endpoint: str, api_key: str, model: str, text: str, timeout: float) ->
         "temperature": 0,
         "response_format": {"type": "json_object"},
     }
+    if max_tokens:
+        body["max_tokens"] = max_tokens
     headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
     started = time.time()
     with httpx.Client(timeout=timeout) as client:
@@ -188,7 +191,7 @@ def _call(endpoint: str, api_key: str, model: str, text: str, timeout: float) ->
 
 def run_llm_arm(population, model: str | None = None, provider: str | None = None,
                 endpoint: str | None = None, api_key: str | None = None,
-                timeout: float = 600.0):
+                timeout: float = 600.0, max_tokens: int | None = None):
     """Run the model over the population and score it."""
     from decimal import Decimal
 
@@ -202,6 +205,8 @@ def run_llm_arm(population, model: str | None = None, provider: str | None = Non
         api_key = os.getenv("AI_API_KEY", "")
     model = model or (os.getenv("AI_MODEL", "glm-5.3-flash") if provider == "cloud"
                       else os.getenv("OLLAMA_MODEL", "gemma4:latest"))
+    if max_tokens is None:
+        max_tokens = int(os.getenv("MAX_TOKENS", "0")) or None
 
     result = ArmResult(arm="llm", model=model)
     for fixture in population.fixtures:
@@ -209,7 +214,7 @@ def run_llm_arm(population, model: str | None = None, provider: str | None = Non
         text = render_documents(docs)
         started = time.time()
         try:
-            out = _call(endpoint, api_key, model, text, timeout)
+            out = _call(endpoint, api_key, model, text, timeout, max_tokens)
         except Exception as exc:  # noqa: BLE001 — a failed call is a failed fixture
             elapsed = time.time() - started
             result.failed_fixtures += 1

@@ -107,6 +107,7 @@ class ArmResult:
     clean_fixtures: int = 0
     findings_on_clean: int = 0
     failed_fixtures: int = 0
+    failed_seeded: int = 0
     model_calls: int = 0
     prompt_tokens: int = 0
     completion_tokens: int = 0
@@ -124,6 +125,19 @@ class ArmResult:
 
     @property
     def recall(self) -> float | None:
+        """Recall over the fixtures this arm answered.
+
+        A fixture the harness could not get an answer for is not a miss — the model
+        was never asked. It is reported separately, and the count is here so the
+        number can be read either way.
+        """
+        answered = self.seeded - self.failed_seeded
+        return (self.found / answered) if answered else None
+
+    @property
+    def recall_counting_failures_as_misses(self) -> float | None:
+        """The pessimistic reading: a fixture the harness could not answer counts as
+        a miss. Both numbers are published."""
         return (self.found / self.seeded) if self.seeded else None
 
     @property
@@ -137,6 +151,8 @@ class ArmResult:
             "duplicates": self.duplicates, "clean_fixtures": self.clean_fixtures,
             "findings_on_clean": self.findings_on_clean,
             "failed_fixtures": self.failed_fixtures,
+            "failed_seeded": self.failed_seeded,
+            "recall_counting_failures_as_misses": self.recall_counting_failures_as_misses,
             "model_calls": self.model_calls,
             "prompt_tokens": self.prompt_tokens,
             "completion_tokens": self.completion_tokens,
@@ -277,6 +293,8 @@ def render_table(deterministic: ArmResult | None, llm: ArmResult | None,
         row("Fixtures the arm could not answer", d.failed_fixtures, l.failed_fixtures)
         row("Precision", pct(d.precision), pct(l.precision))
         row("Recall", pct(d.recall), pct(l.recall))
+        if l.failed_fixtures:
+            row("  if the unanswered count as misses", "—", pct(l.recall_counting_failures_as_misses))
         row("Wall time per fixture (median)", num(d.median_seconds), num(l.median_seconds))
         row("Model calls", 0, l.model_calls)
         row("Tokens (prompt / completion)", "0 / 0", f"{l.prompt_tokens} / {l.completion_tokens}")
@@ -304,6 +322,11 @@ def render_table(deterministic: ArmResult | None, llm: ArmResult | None,
     lines.append(f"auditor-minutes assumes {located_minutes} min per located finding and "
                  f"{unlocated_minutes} min per unlocated claim — an assumption, stated so "
                  f"the row can be re-computed.")
+    if llm is not None and llm.failed_fixtures:
+        lines.append(f"{llm.failed_fixtures} fixture(s) the harness could not get an answer "
+                     f"for ({llm.failed_seeded} seeded errors) are not counted as misses: "
+                     f"the model was never asked. The row above counts them as misses, "
+                     f"so the number can be read either way.")
     return "\n".join(lines)
 
 

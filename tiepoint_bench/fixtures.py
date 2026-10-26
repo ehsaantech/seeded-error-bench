@@ -1,4 +1,4 @@
-"""The fixture generator — parameterised, with the ground truth written down first.
+"""The fixture generator — parameterised, with ground truth.
 
 A fixture is a synthetic fixed-asset engagement: a register, a prior-year rollforward,
 a GL extract, a trial balance, a depreciation policy, and the invoices and disposal
@@ -87,17 +87,32 @@ def _stabilise(path: Path) -> None:
     Both openpyxl and python-docx stamp the current time into the file, so a
     regenerated fixture would have a different hash every run. The content is
     identical; only the clock is noise.
+
+    The timestamps inside the document properties are pinned as well: openpyxl
+    writes `dcterms:modified` at save time, whatever the workbook was told.
     """
     with zipfile.ZipFile(path) as zf:
         items = [(i.filename, zf.read(i.filename)) for i in zf.infolist()]
+    pinned = [(name, _pinned_core(data) if name == "docProps/core.xml" else data)
+              for name, data in items]
     tmp = path.with_name(path.name + ".tmp")
     with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as out:
-        for name, data in items:
+        for name, data in pinned:
             info = zipfile.ZipInfo(name, date_time=FIXED_TIME)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o600 << 16
             out.writestr(info, data)
     tmp.replace(path)
+
+
+def _pinned_core(data: bytes) -> bytes:
+    """The document properties carry the clock. Pin them to the fixed timestamp."""
+    import re
+
+    text = data.decode("utf-8", "ignore")
+    text = re.sub(r"(<dcterms:(?:created|modified)\b[^>]*>)[^<]*(</dcterms:(?:created|modified)>)",
+                  r"\g<1>2026-01-01T00:00:00Z\g<2>", text)
+    return text.encode("utf-8")
 
 
 def _stable_workbook(wb: Workbook, path: Path) -> None:

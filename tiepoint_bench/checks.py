@@ -1,4 +1,4 @@
-"""The fixed-asset substantive checks.
+"""S1: the fixed-asset substantive checks.
 
 DECISIONS §3 — reconciliation is pandas, never the LLM. These checks read the
 register, the ledger and the support documents, and raise a typed finding for every
@@ -245,20 +245,37 @@ def run_checks(docs: list[Doc], config: Config | None = None) -> list[Finding]:
     """Run every fixed-asset check over these documents. Deterministic.
 
     A document the engagement has not provided is a *missing* check, not a silent
-    skip: a check that cannot run raises a finding of its own, so the queue says
-    what was not tested.
+    skip and not a crash: a check that cannot run raises a finding of its own, so the
+    queue says what was not tested.
     """
     cfg = config or Config()
     roles = _by_role(docs, cfg)
     findings: list[Finding] = []
 
-    findings += _check_rollforward(roles, cfg)
-    findings += _check_accum_rollforward(roles, cfg)
-    findings += _check_policy(roles, cfg)
-    findings += _check_ledger(roles, cfg)
-    findings += _check_prior_year(roles, cfg)
-    findings += _check_additions(roles, cfg)
-    findings += _check_disposals(roles, cfg)
+    checks = (
+        ("register", _check_rollforward),
+        ("register", _check_accum_rollforward),
+        ("register", _check_policy),
+        ("ledger", _check_ledger),
+        ("prior_year", _check_prior_year),
+        ("additions", _check_additions),
+        ("disposals", _check_disposals),
+    )
+    for role, check in checks:
+        try:
+            findings += check(roles, cfg)
+        except (FileNotFoundError, OSError) as exc:
+            # the document is not there: an operator matter, and the queue says which
+            findings.append(Finding(
+                kind="document_missing", subject=role,
+                detail=(f"{role}: the document is not there — {exc}"),
+                source=""))
+        except tables.TableError as exc:
+            # the document is there but cannot be read: also an operator matter
+            findings.append(Finding(
+                kind="document_unreadable", subject=role,
+                detail=(f"{role}: the document could not be read — {exc}"),
+                source=""))
     return findings
 
 
