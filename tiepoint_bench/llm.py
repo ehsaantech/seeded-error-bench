@@ -213,9 +213,21 @@ def run_llm_arm(population, model: str | None = None, provider: str | None = Non
         docs = docs_for(fixture)
         text = render_documents(docs)
         started = time.time()
-        try:
-            out = _call(endpoint, api_key, model, text, timeout, max_tokens)
-        except Exception as exc:  # noqa: BLE001 — a failed call is a failed fixture
+        out = None
+        last_error = None
+        # One retry. An empty answer is usually transient — the model spent its
+        # budget thinking and the endpoint returned a message with no content —
+        # and giving up on the first one turns a transient event into a permanent
+        # loss. On the 40-fixture population that difference is not marginal.
+        for attempt in range(2):
+            try:
+                out = _call(endpoint, api_key, model, text, timeout, max_tokens)
+                break
+            except Exception as exc:  # noqa: BLE001 — a failed call is a failed fixture
+                last_error = exc
+                if attempt == 0:
+                    continue
+        if out is None:
             elapsed = time.time() - started
             result.failed_fixtures += 1
             result.times.append(elapsed)
@@ -224,7 +236,7 @@ def run_llm_arm(population, model: str | None = None, provider: str | None = Non
             result.per_fixture.append({
                 "fixture": fixture.id, "seeded": len(fixture.errors), "found": 0,
                 "missed": len(fixture.errors), "false_positives": 0, "duplicates": 0,
-                "seconds": round(elapsed, 3), "error": str(exc)[:200]})
+                "seconds": round(elapsed, 3), "error": str(last_error)[:200]})
             continue
         elapsed = time.time() - started
         result.times.append(elapsed)
