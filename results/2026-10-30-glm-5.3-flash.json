@@ -1,0 +1,920 @@
+{
+  "population": {
+    "root": "samples/bench",
+    "seed": 7,
+    "count": 40,
+    "seeded_errors": 72,
+    "clean_fixtures": 16
+  },
+  "located_minutes": 2,
+  "unlocated_minutes": 8,
+  "harness": {
+    "provider": "cloud",
+    "model": "glm-5.3-flash",
+    "max_tokens": "",
+    "timeout_s": "300"
+  },
+  "table": "SEEDED-ERROR BENCHMARK \u2014 fixed assets, one template, synthetic population\npopulation: 40 fixtures \u00b7 72 seeded errors \u00b7 16 clean fixtures \u00b7 seed 7\n\n                                          Deterministic (rules)      LLM (glm-5.3-flash)\n----------------------------------------------------------------------------------------\nSeeded errors found                                     72 / 72                  65 / 72\nMissed                                                        0                        7\nFalse positives                                               0                        7\n  of which on clean fixtures                                  0                        0\nDuplicate reports (same error twice)                         12                        0\nFixtures the arm could not answer                             0                        0\nPrecision                                                100.0%                    90.3%\nRecall                                                   100.0%                    90.3%\nWall time per fixture (median)                            0.03s                   46.05s\nModel calls                                                   0                       73\nTokens (prompt / completion)                              0 / 0          141649 / 430137\nQueue items (located / unlocated)                        84 / 0                  55 / 17\nAuditor-minutes to clear the queue                          168                      246\n\nauditor-minutes assumes 2 min per located finding and 8 min per unlocated claim \u2014 an assumption, stated so the row can be re-computed.",
+  "arms": [
+    {
+      "arm": "deterministic",
+      "model": "",
+      "seeded": 72,
+      "found": 72,
+      "missed": 0,
+      "false_positives": 0,
+      "duplicates": 12,
+      "clean_fixtures": 16,
+      "findings_on_clean": 0,
+      "failed_fixtures": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "recall_counting_failures_as_misses": 1.0,
+      "failed_seeded": 0,
+      "median_seconds": 0.029180049896240234,
+      "model_calls": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "located_findings": 84,
+      "unlocated_findings": 0,
+      "per_fixture": [
+        {
+          "fixture": "fixture-000",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.241
+        },
+        {
+          "fixture": "fixture-001",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-002",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-003",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-004",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-005",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.033
+        },
+        {
+          "fixture": "fixture-006",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.032
+        },
+        {
+          "fixture": "fixture-007",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-008",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.026
+        },
+        {
+          "fixture": "fixture-009",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.026
+        },
+        {
+          "fixture": "fixture-010",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-011",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-012",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-013",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-014",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.033
+        },
+        {
+          "fixture": "fixture-015",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-016",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.027
+        },
+        {
+          "fixture": "fixture-017",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-018",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-019",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.027
+        },
+        {
+          "fixture": "fixture-020",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.033
+        },
+        {
+          "fixture": "fixture-021",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.027
+        },
+        {
+          "fixture": "fixture-022",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.033
+        },
+        {
+          "fixture": "fixture-023",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.031
+        },
+        {
+          "fixture": "fixture-024",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.027
+        },
+        {
+          "fixture": "fixture-025",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-026",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-027",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-028",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-029",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-030",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-031",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-032",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-033",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.029
+        },
+        {
+          "fixture": "fixture-034",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.054
+        },
+        {
+          "fixture": "fixture-035",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.031
+        },
+        {
+          "fixture": "fixture-036",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-037",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 0.03
+        },
+        {
+          "fixture": "fixture-038",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.028
+        },
+        {
+          "fixture": "fixture-039",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 1,
+          "seconds": 0.029
+        }
+      ],
+      "missed_examples": [],
+      "false_positive_examples": []
+    },
+    {
+      "arm": "llm",
+      "model": "glm-5.3-flash",
+      "seeded": 72,
+      "found": 65,
+      "missed": 7,
+      "false_positives": 7,
+      "duplicates": 0,
+      "clean_fixtures": 16,
+      "findings_on_clean": 0,
+      "failed_fixtures": 0,
+      "precision": 0.9027777777777778,
+      "recall": 0.9027777777777778,
+      "recall_counting_failures_as_misses": 0.9027777777777778,
+      "failed_seeded": 0,
+      "median_seconds": 46.052327275276184,
+      "model_calls": 73,
+      "prompt_tokens": 141649,
+      "completion_tokens": 430137,
+      "located_findings": 55,
+      "unlocated_findings": 17,
+      "per_fixture": [
+        {
+          "fixture": "fixture-000",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 56.121
+        },
+        {
+          "fixture": "fixture-001",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 51.94
+        },
+        {
+          "fixture": "fixture-002",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 70.157
+        },
+        {
+          "fixture": "fixture-003",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 57.696
+        },
+        {
+          "fixture": "fixture-004",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 84.962
+        },
+        {
+          "fixture": "fixture-005",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 64.188
+        },
+        {
+          "fixture": "fixture-006",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 50.495
+        },
+        {
+          "fixture": "fixture-007",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 1109.718
+        },
+        {
+          "fixture": "fixture-008",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 127.433
+        },
+        {
+          "fixture": "fixture-009",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 31.55
+        },
+        {
+          "fixture": "fixture-010",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 87.589
+        },
+        {
+          "fixture": "fixture-011",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 77.209
+        },
+        {
+          "fixture": "fixture-012",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 37.969
+        },
+        {
+          "fixture": "fixture-013",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 62.333
+        },
+        {
+          "fixture": "fixture-014",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 48.716
+        },
+        {
+          "fixture": "fixture-015",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 50.188
+        },
+        {
+          "fixture": "fixture-016",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 23.047
+        },
+        {
+          "fixture": "fixture-017",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 99.647
+        },
+        {
+          "fixture": "fixture-018",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 85.258
+        },
+        {
+          "fixture": "fixture-019",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 45.32
+        },
+        {
+          "fixture": "fixture-020",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 43.533
+        },
+        {
+          "fixture": "fixture-021",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 37.451
+        },
+        {
+          "fixture": "fixture-022",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 46.785
+        },
+        {
+          "fixture": "fixture-023",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 43.574
+        },
+        {
+          "fixture": "fixture-024",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 17.999
+        },
+        {
+          "fixture": "fixture-025",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 35.94
+        },
+        {
+          "fixture": "fixture-026",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 325.489
+        },
+        {
+          "fixture": "fixture-027",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 257.046
+        },
+        {
+          "fixture": "fixture-028",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 30.529
+        },
+        {
+          "fixture": "fixture-029",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 21.838
+        },
+        {
+          "fixture": "fixture-030",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 22.563
+        },
+        {
+          "fixture": "fixture-031",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 29.282
+        },
+        {
+          "fixture": "fixture-032",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 17.292
+        },
+        {
+          "fixture": "fixture-033",
+          "seeded": 3,
+          "found": 2,
+          "missed": 1,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 19.987
+        },
+        {
+          "fixture": "fixture-034",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 25.332
+        },
+        {
+          "fixture": "fixture-035",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 25.064
+        },
+        {
+          "fixture": "fixture-036",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 31.547
+        },
+        {
+          "fixture": "fixture-037",
+          "seeded": 0,
+          "found": 0,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 27.13
+        },
+        {
+          "fixture": "fixture-038",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 1,
+          "duplicates": 0,
+          "seconds": 47.789
+        },
+        {
+          "fixture": "fixture-039",
+          "seeded": 3,
+          "found": 3,
+          "missed": 0,
+          "false_positives": 0,
+          "duplicates": 0,
+          "seconds": 24.227
+        }
+      ],
+      "missed_examples": [
+        {
+          "fixture": "fixture-001",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-004",
+          "amount": null,
+          "detail": "disposal DISP-2026-004 (CNC machine) carries no approval",
+          "aliases": [
+            "DISP-2026-004",
+            "CNC machine"
+          ]
+        },
+        {
+          "fixture": "fixture-002",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-002",
+          "amount": null,
+          "detail": "disposal DISP-2026-002 (Forklift) carries no approval",
+          "aliases": [
+            "DISP-2026-002",
+            "Forklift"
+          ]
+        },
+        {
+          "fixture": "fixture-014",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-010",
+          "amount": null,
+          "detail": "disposal DISP-2026-010 (CNC machine 2) carries no approval",
+          "aliases": [
+            "DISP-2026-010",
+            "CNC machine 2"
+          ]
+        },
+        {
+          "fixture": "fixture-016",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-006",
+          "amount": null,
+          "detail": "disposal DISP-2026-006 (Air conditioner 2) carries no approval",
+          "aliases": [
+            "DISP-2026-006",
+            "Air conditioner 2"
+          ]
+        },
+        {
+          "fixture": "fixture-018",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-010",
+          "amount": null,
+          "detail": "disposal DISP-2026-010 (Forklift) carries no approval",
+          "aliases": [
+            "DISP-2026-010",
+            "Forklift"
+          ]
+        },
+        {
+          "fixture": "fixture-030",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-009",
+          "amount": null,
+          "detail": "disposal DISP-2026-009 (Air conditioner 2) carries no approval",
+          "aliases": [
+            "DISP-2026-009",
+            "Air conditioner 2"
+          ]
+        },
+        {
+          "fixture": "fixture-033",
+          "id": "E03",
+          "type": "missing_approval",
+          "subject": "DISP-2026-006",
+          "amount": null,
+          "detail": "disposal DISP-2026-006 (Excavator 2) carries no approval",
+          "aliases": [
+            "DISP-2026-006",
+            "Excavator 2"
+          ]
+        }
+      ],
+      "false_positive_examples": [
+        {
+          "fixture": "fixture-001",
+          "kind": "missing_approval",
+          "subject": "FA-0020 CNC machine",
+          "detail": "The disposal document for the CNC machine records proceeds of AUD 15,000 but contains no approval, unlike DISP-2026-011 (Forklift) which cites Board resolution BR-2026-04."
+        },
+        {
+          "fixture": "fixture-008",
+          "kind": "missing_approval",
+          "subject": "Office Equipment disposal",
+          "detail": "The register records a disposal of 10000 for Office Equipment, but no approved disposal document exists for it; no Office Equipment asset is shown as disposed in the Asset List either."
+        },
+        {
+          "fixture": "fixture-014",
+          "kind": "missing_approval",
+          "subject": "FA-0120 CNC machine 2 (Plant & Machinery)",
+          "detail": "Disposal document records proceeds of AUD 22,500 but contains no approval (no 'Approved by' line), unlike DISP-2026-005 and DISP-2026-015 which cite Board resolution BR-2026-04."
+        },
+        {
+          "fixture": "fixture-018",
+          "kind": "missing_approval",
+          "subject": "FA-0220 Forklift (Office Equipment)",
+          "detail": "Disposal document records proceeds of AUD 0.00 for the 40,000 asset but contains no approval (no 'Approved by' line), unlike DISP-2026-006 which cites Board resolution BR-2026-04."
+        },
+        {
+          "fixture": "fixture-030",
+          "kind": "missing_approval",
+          "subject": "FA-0220 Air conditioner 2",
+          "detail": "Disposal document records proceeds AUD 0.00 but contains no approval; compare DISP-2026-004 (Lathe), which is approved by Board resolution BR-2026-04."
+        },
+        {
+          "fixture": "fixture-033",
+          "kind": "missing_approval",
+          "subject": "FA-0120 Excavator 2 (Office Equipment disposal)",
+          "detail": "Disposal document DISP-2026-006 (proceeds AUD 27,500.00) contains no approval, unlike DISP-2026-004 and DISP-2026-009 which cite Board resolution BR-2026-04."
+        },
+        {
+          "fixture": "fixture-038",
+          "kind": "support_variance",
+          "subject": "FA-0210 Conveyor system 2",
+          "detail": "Invoice INV-2026-0007 states AUD 20,000.00 (and GL acct 4120 movement Dr is 20000), but the register's additions for Motor Vehicles show 30000."
+        }
+      ]
+    }
+  ]
+}

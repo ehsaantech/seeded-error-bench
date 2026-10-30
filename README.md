@@ -7,7 +7,41 @@ were.**
 Everything in this repository is synthetic. There is no client material here, and there
 is nothing to anonymise.
 
-<!-- RESULTS -->
+## The result
+
+**40 synthetic fixed-asset engagements · 72 seeded errors · 16 clean fixtures · seed 7**
+· model `glm-5.3-flash` on the cloud · rules run locally in 0.03 s per fixture.
+
+| | Deterministic (rules) | LLM (`glm-5.3-flash`) |
+|---|---:|---:|
+| Seeded errors found | **72 / 72** | 65 / 72 |
+| Missed | **0** | 7 |
+| False positives | **0** | 7 |
+| &nbsp;&nbsp;of which on clean fixtures | 0 | 0 |
+| Duplicate reports (same error twice) | 12 | 0 |
+| Fixtures the arm could not answer | 0 | 0 |
+| Precision | **100.0%** | 90.3% |
+| Recall | **100.0%** | 90.3% |
+| Wall time per fixture (median) | **0.03 s** | 46.05 s |
+| Model calls | 0 | 73 |
+| Tokens (prompt / completion) | 0 | 141,649 / 430,137 |
+| **Queue items (located / unlocated)** | **84 / 0** | **55 / 17** |
+| **Auditor-minutes to clear the queue** | **168** | **246** |
+
+*Auditor-minutes assumes 2 minutes to clear a located finding and 8 minutes to
+clear an unlocated claim — an assumption, stated so the row can be recomputed. The
+absolute numbers move; the ratio is the claim.*
+
+**Read the last two rows.** The rules did not merely find more: they produced a queue
+in which **every item carries the cell it came from**, and the model's queue carries
+seventeen claims that carry no locator at all. A claim without a locator is not a
+finding an auditor can work from — it is a question, and it costs four times as long
+to close. That is the whole difference, and it is why the benchmark scores
+auditor-minutes and not accuracy.
+
+The model's seven misses and seven false positives are in the run record, with the
+model's own note for each: `results/2026-10-30-glm-5.3-flash.json`.
+
 
 ---
 
